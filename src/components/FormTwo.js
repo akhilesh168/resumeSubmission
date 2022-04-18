@@ -19,6 +19,8 @@ import Snackbar from "@mui/material/Snackbar";
 import FormHelperText from "@mui/material/FormHelperText";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Icon from "@mui/material/Icon";
 
 const schema = yup
   .object({
@@ -59,7 +61,10 @@ export default function FormTwo() {
   let formValues = useSelector((state) => state.formValues);
 
   const onSubmit = (data) => {
-    setOpen(true);
+    if (formState.isSubmitting) {
+      setOpen(true);
+    }
+
     let formValue = {
       ...data,
       Cv: data?.Cv[0],
@@ -75,7 +80,10 @@ export default function FormTwo() {
     dispatch({ type: DECREMENT_FORM_INDEX, payload: formIndex - 1 });
     reset();
     dispatch({ type: FORM_SUBMIT, payload: {} });
-    setOpen(false);
+
+    if (formState.isSubmitted) {
+      setOpen(false);
+    }
   };
 
   const onPrevious = (event) => {
@@ -96,12 +104,9 @@ export default function FormTwo() {
     <>
       <Container style={{ margin: 10 }}>
         <Box
-          component="form"
           sx={{
             "& .MuiTextField-root": { m: 2, width: "75ch" },
           }}
-          noValidate
-          autoComplete="off"
         >
           <form>
             <div>
@@ -167,7 +172,6 @@ export default function FormTwo() {
                     render={({ field }) => (
                       <input
                         onChange={(e) => {
-                          console.log(e.target.files);
                           field.onChange(e.target.files);
                         }}
                         type="file"
@@ -230,7 +234,17 @@ export default function FormTwo() {
           onClose={handleClose}
           message="Data Successfully Submitted"
           key={"top" + "center"}
-          autoHideDuration={2000}
+          autoHideDuration={5000}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <Icon>close</Icon>
+            </IconButton>,
+          ]}
         />
       </Container>
     </>

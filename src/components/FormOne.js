@@ -67,7 +67,7 @@ export default function FormOne() {
           }}
         >
           <form>
-            <div className="">
+            <div>
               <Controller
                 name="firstName"
                 control={control}
@@ -83,7 +83,7 @@ export default function FormOne() {
                 )}
               />
             </div>
-            <div className="">
+            <div>
               <Controller
                 name="lastName"
                 control={control}
@@ -99,7 +99,7 @@ export default function FormOne() {
                 )}
               />
             </div>
-            <div className="">
+            <div>
               <Controller
                 name="email"
                 control={control}
@@ -115,7 +115,7 @@ export default function FormOne() {
                 )}
               />
             </div>
-            <div className="">
+            <div>
               <Controller
                 name="phone_number"
                 control={control}
